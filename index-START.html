@@ -62,13 +62,61 @@
       background:black;
       position: absolute;
       top:50%;
+      /*clock hands rotate from center of clock point*/
       transform-origin: 100%;
+      /*all hands pointing up and down*/
+      transform: rotate(90deg);
+      /*rotation of clock hand*/
+      transition: all 0.05s;
+      /*movement when rotation transition occurs*/
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58,1);
     }
 
   </style>
 
   <script>
 
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.min-hand');
+
+    // create function for finding out current time
+    function setDate() {
+      // grab date
+      const now = new Date();
+
+      // SECONDS HAND
+      // get seconds
+      const seconds = now.getSeconds();
+      // apply degree to the second hand
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+
+      // apply transformation for moving the hand
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+
+      // MINUTES HAND
+      // get minutes
+      const minute = now.getMinutes();
+      // apply degree to the minute hand
+      const minuteDegrees = ((minute / 60) * 360) + 90;
+
+      // apply transformation for moving the hand
+      minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+
+      // HOUR HAND
+      // get minutes
+      const hour = now.getHour();
+      // apply degree to the minute hand
+      const hourDegrees = ((hour / 12) * 360) + 90;
+
+      // apply transformation for moving the hand
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+    }
+
+    // do function every second
+    setInterval(setDate, 1000)
 
   </script>
 </body>
